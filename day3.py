@@ -18,11 +18,7 @@ def check_trees(forest, di, dj):
     height = len(forest)
     width = len(forest[0])
     sum = 0
-    path = [(j, i)]
-    if forest[j][i] == 1:
-        sum += 1
-    i = (i + di) % width
-    j = j + dj
+    path = []
     while j < height:
         path.append((i, j))
         if forest[j][i] == 1:
