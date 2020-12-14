@@ -42,5 +42,52 @@ def task1():
     print(abs(ans[0]) + abs(ans[1]))
 
 
+def move_ship2(ship: List[float], mp: List[float], action: str):
+    val = int(action[1:])
+    if action.startswith("N"):
+        mp[1] += val
+    elif action.startswith("S"):
+        mp[1] -= val
+    elif action.startswith("E"):
+        mp[0] += val
+    elif action.startswith("W"):
+        mp[0] -= val
+    elif action.startswith("R"):
+        rad = radians(val * (-1))
+        x = mp[0]
+        y = mp[1]
+        x_new = x * cos(rad) - y * sin(rad)
+        y_new = y * cos(rad) + x * sin(rad)
+        mp[0] = x_new
+        mp[1] = y_new
+    elif action.startswith("L"):
+        rad = radians(val)
+        x = mp[0]
+        y = mp[1]
+        x_new = x * cos(rad) - y * sin(rad)
+        y_new = y * cos(rad) + x * sin(rad)
+        mp[0] = x_new
+        mp[1] = y_new
+    elif action.startswith("F"):
+        ship[0] = ship[0] + mp[0] * val
+        ship[1] = ship[1] + mp[1] * val
+
+
+def follow_path2(path: List[str]):
+    ship = [0.0, 0.0]
+    mp = [10.0, 1.0]
+    for action in path:
+        move_ship2(ship, mp, action)
+    return ship
+
+
+def task2():
+    path = read_data("input12.txt")
+    ans = follow_path2(path)
+    # print(ans)
+    print(abs(ans[0]) + abs(ans[1]))
+
+
 if __name__ == "__main__":
     task1()
+    task2()
